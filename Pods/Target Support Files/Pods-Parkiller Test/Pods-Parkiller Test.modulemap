@@ -1,0 +1,6 @@
+framework module Pods_Parkiller_Test {
+  umbrella header "Pods-Parkiller Test-umbrella.h"
+
+  export *
+  module * { export * }
+}
