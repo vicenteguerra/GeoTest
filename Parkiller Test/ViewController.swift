@@ -13,6 +13,7 @@ import GooglePlaces
 import UserNotifications
 
 class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLLocationManagerDelegate, GMSMapViewDelegate {
+    
     var locationManager:CLLocationManager!
     var camera: GMSCameraPosition!
     var position: GMSCameraPosition!
@@ -32,12 +33,13 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var markButton: UIButton!
     @IBOutlet weak var pinLabel: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
         
         camera = GMSCameraPosition.camera(withLatitude: 19.1143400177539,
-                                          longitude: -99.2471251265139, zoom: 10)
+                                          longitude: -99.2471251265139, zoom: 12)
         mapView.camera = camera
         mapView.isMyLocationEnabled = true
         mapView.delegate = self
@@ -65,18 +67,10 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
         markButton.isHidden = true
         deleteMarkerButton.isHidden = false
         
-        let coordinate1 = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        
         self.markerLocation = CLLocation(latitude: position.target.latitude, longitude: position.target.longitude)
-        let distanceInMeters = self.markerLocation!.distance(from: coordinate1)
-        infoLabel.text = "\(distanceInMeters)"
-        
-        let circleCenter : CLLocationCoordinate2D  = CLLocationCoordinate2DMake(position.target.latitude, position.target.longitude)
-        let circ = GMSCircle(position: circleCenter, radius: distanceInMeters)
-        circ.fillColor = UIColor(red: 0.0, green: 0.7, blue: 0, alpha: 0.1)
-        circ.strokeColor = UIColor(red: 255/255, green: 153/255, blue: 51/255, alpha: 0.5)
-        circ.strokeWidth = 2.5
-        circ.map = self.mapView
+
+        showDistance()
+        drawCircles()
         
     }
     
@@ -98,8 +92,9 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     func determineMyCurrentLocation() {
         locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
@@ -114,23 +109,20 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     @IBAction func goToMyLocation(_ sender: Any) {
         camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 14)
         mapView.animate(to: camera)
-        
-        send10SecNotification()
     }
     
     
-    func send10SecNotification(){
+    func sendNotification(subtitle: String, distance: String){
         if isGrantedNotificationAccess{
             let content = UNMutableNotificationContent()
-            content.title = "Test 🚀"
-            content.subtitle = "Hola :) 🍺"
-            content.body = "La la la 👻"
+            content.title = "Parkiller 🚀"
+            content.subtitle = subtitle
+            content.body = distance
             content.categoryIdentifier = "message"
             
             let trigger = UNTimeIntervalNotificationTrigger(
-                timeInterval: 1,
+                timeInterval: 5,
                 repeats: false)
-            
             let request = UNNotificationRequest(
                 identifier: "10.second.message",
                 content: content,
@@ -149,14 +141,13 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
         
         if(initialCamera){
             camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-                                              longitude: location.coordinate.longitude, zoom: 10)
+                                              longitude: location.coordinate.longitude, zoom: 14)
             mapView.camera = camera
             initialCamera = false
         }
         
         if(self.markerLocation != nil){
-            let distanceInMeters = self.markerLocation!.distance(from: location)
-            infoLabel.text = "\(distanceInMeters)"
+            showDistance()
         }
         //manager.stopUpdatingLocation()
     }
@@ -167,9 +158,7 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     }
     
     func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
-        
         let geocoder = GMSGeocoder()
-        
         geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
             if let address = response?.firstResult() {
                 
@@ -196,7 +185,8 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     }
     
     @IBAction func removeMarker(_ sender: Any) {
-        marker.map = nil
+        removeCircles()
+        markerLocation = nil
         deleteMarkerButton.isHidden = true
         infoLabel.isHidden = true
         markButton.isHidden = false
@@ -219,7 +209,6 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     }
     
     func locateWithLongitude(lon: Double, andLatitude lat: Double, andTitle title: String) {
-    
         DispatchQueue.main.async {
             self.infoLabel.text = title
             self.camera = GMSCameraPosition.camera(withLatitude: lat,

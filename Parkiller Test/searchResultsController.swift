@@ -19,7 +19,6 @@ class searchResultsController: UITableViewController {
     
     var searchResults: [String]!
     var delegate: LocateOnTheMap!
-    var apikey = "AIzaSyA2qFQaOixrlXi6u2ArwKyARpCRE9h0AeQ"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +52,7 @@ class searchResultsController: UITableViewController {
         let firstResult: String = self.searchResults[indexPath.row]
         if let correctedAddress = firstResult.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
             let url = URL(string: "https://maps.googleapis.com/maps/api/geocode/json?address=\(correctedAddress)") {
-            print(url)
             Alamofire.request(url).responseJSON { response in
-                
                 if let json = response.result.value {
                     let myjson = JSON(json)
                     

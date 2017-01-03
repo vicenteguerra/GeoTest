@@ -12,6 +12,8 @@
 		D80F63F01E19C43C00577228 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80F63EF1E19C43C00577228 /* Alamofire.framework */; };
 		D80F63F31E1B03FE00577228 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80F63F11E1B03DB00577228 /* SwiftyJSON.framework */; };
 		D80F63F41E1B03FE00577228 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D80F63F11E1B03DB00577228 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D80F63F71E1B284F00577228 /* distanceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F63F61E1B284E00577228 /* distanceExtensions.swift */; };
+		D80F63F91E1B772900577228 /* nearController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80F63F81E1B772900577228 /* nearController.swift */; };
 		D881B9D81E12E91F00E9F653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D881B9D71E12E91F00E9F653 /* AppDelegate.swift */; };
 		D881B9DA1E12E91F00E9F653 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D881B9D91E12E91F00E9F653 /* ViewController.swift */; };
 		D881B9DD1E12E91F00E9F653 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D881B9DB1E12E91F00E9F653 /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 		D80F63ED1E186E2B00577228 /* searchResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchResultsController.swift; sourceTree = "<group>"; };
 		D80F63EF1E19C43C00577228 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/Parkiller_Test-dwxudazcounpayetzmjgdbsuyneo/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		D80F63F11E1B03DB00577228 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/Parkiller_Test-dwxudazcounpayetzmjgdbsuyneo/Build/Products/Debug-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		D80F63F61E1B284E00577228 /* distanceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = distanceExtensions.swift; sourceTree = "<group>"; };
+		D80F63F81E1B772900577228 /* nearController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nearController.swift; sourceTree = "<group>"; };
 		D881B9D41E12E91F00E9F653 /* Parkiller Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parkiller Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D881B9D71E12E91F00E9F653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D881B9D91E12E91F00E9F653 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 			children = (
 				D881B9D71E12E91F00E9F653 /* AppDelegate.swift */,
 				D881B9D91E12E91F00E9F653 /* ViewController.swift */,
+				D80F63F61E1B284E00577228 /* distanceExtensions.swift */,
+				D80F63F81E1B772900577228 /* nearController.swift */,
 				D80F63ED1E186E2B00577228 /* searchResultsController.swift */,
 				D881B9DB1E12E91F00E9F653 /* Main.storyboard */,
 				D881B9DE1E12E91F00E9F653 /* Assets.xcassets */,
@@ -152,6 +158,11 @@
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = V8XV7W9973;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -240,7 +251,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D80F63EE1E186E2B00577228 /* searchResultsController.swift in Sources */,
+				D80F63F91E1B772900577228 /* nearController.swift in Sources */,
 				D881B9DA1E12E91F00E9F653 /* ViewController.swift in Sources */,
+				D80F63F71E1B284F00577228 /* distanceExtensions.swift in Sources */,
 				D881B9D81E12E91F00E9F653 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
