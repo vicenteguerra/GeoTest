@@ -20,6 +20,7 @@
 		D80F640E1E1BA17100577228 /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D80F64091E1BA0F700577228 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D80F640F1E1BA17A00577228 /* TwitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80F640B1E1BA0FE00577228 /* TwitterAPI.framework */; };
 		D80F64101E1BA17A00577228 /* TwitterAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D80F640B1E1BA0FE00577228 /* TwitterAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D80F64121E1BA5EC00577228 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D80F64111E1BA5EC00577228 /* GoogleService-Info.plist */; };
 		D881B9D81E12E91F00E9F653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D881B9D71E12E91F00E9F653 /* AppDelegate.swift */; };
 		D881B9DA1E12E91F00E9F653 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D881B9D91E12E91F00E9F653 /* ViewController.swift */; };
 		D881B9DD1E12E91F00E9F653 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D881B9DB1E12E91F00E9F653 /* Main.storyboard */; };
@@ -56,6 +57,7 @@
 		D80F64041E1B9FA300577228 /* Swifter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swifter.framework; path = "Pods/../build/Debug-iphoneos/Swifter.framework"; sourceTree = "<group>"; };
 		D80F64091E1BA0F700577228 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = "../../../Library/Developer/Xcode/DerivedData/Parkiller_Test-dwxudazcounpayetzmjgdbsuyneo/Build/Products/Debug-iphoneos/OAuthSwift/OAuthSwift.framework"; sourceTree = "<group>"; };
 		D80F640B1E1BA0FE00577228 /* TwitterAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterAPI.framework; path = "../../../Library/Developer/Xcode/DerivedData/Parkiller_Test-dwxudazcounpayetzmjgdbsuyneo/Build/Products/Debug-iphoneos/TwitterAPI/TwitterAPI.framework"; sourceTree = "<group>"; };
+		D80F64111E1BA5EC00577228 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D881B9D41E12E91F00E9F653 /* Parkiller Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parkiller Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D881B9D71E12E91F00E9F653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D881B9D91E12E91F00E9F653 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		D881B9D61E12E91F00E9F653 /* Parkiller Test */ = {
 			isa = PBXGroup;
 			children = (
+				D80F64111E1BA5EC00577228 /* GoogleService-Info.plist */,
 				D881B9D71E12E91F00E9F653 /* AppDelegate.swift */,
 				D881B9D91E12E91F00E9F653 /* ViewController.swift */,
 				D80F63F61E1B284E00577228 /* distanceExtensions.swift */,
@@ -210,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D881B9E21E12E91F00E9F653 /* LaunchScreen.storyboard in Resources */,
+				D80F64121E1BA5EC00577228 /* GoogleService-Info.plist in Resources */,
 				D881B9DF1E12E91F00E9F653 /* Assets.xcassets in Resources */,
 				D881B9DD1E12E91F00E9F653 /* Main.storyboard in Resources */,
 			);

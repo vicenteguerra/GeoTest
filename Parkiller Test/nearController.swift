@@ -15,7 +15,7 @@ import TwitterAPI
 extension ViewController{
 
     func getStaticMap(lat: String, lng: String) -> String{
-        return "https://maps.googleapis.com/maps/api/staticmap?center=\(lat),\(lng)&zoom=14&size=500x500&markers=color:red%7Clabel:C%7C\(lat),\(lng).png"
+        return "https://maps.googleapis.com/maps/api/staticmap?center=\(lat),\(lng)&zoom=14&size=500x500&markers=color:red%7Clabel:C%7C\(lat),\(lng)"
     }
     
     func postTweet(tuit: String){

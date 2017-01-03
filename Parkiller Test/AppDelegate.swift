@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import UserNotifications
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyC3eDN-WwY1FDm4pGJCDM6r8-fgw7kKI_w")
         GMSPlacesClient.provideAPIKey("AIzaSyC3eDN-WwY1FDm4pGJCDM6r8-fgw7kKI_w")
+        FIRApp.configure()
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
             if !accepted {
