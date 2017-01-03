@@ -93,7 +93,6 @@ extension ViewController: distanceProperties{
             var color = UIColor.black
             var message = ""
             var alert = false
-            var range = 200
             
             if(distance > 200){
                 message = "Estás muy lejos del punto objetivo"

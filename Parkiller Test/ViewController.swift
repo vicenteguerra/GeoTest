@@ -21,6 +21,7 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     var initialCamera: Bool = true
     var markerAddress: String = ""
     var markerLocation: CLLocation? = nil
+    var range = 200
     
     var searchResultController: searchResultsController!
     var resultsArray = [String]()
