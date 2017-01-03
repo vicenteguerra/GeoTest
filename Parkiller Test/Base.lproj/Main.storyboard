@@ -79,10 +79,21 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="fUW-xh-4Vm"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="textColor" red="4.5309087000000001e-05" green="0.55345326660000005" blue="0.89398646349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9v-qn-pMR">
+                                <rect key="frame" x="22" y="562" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="Erg-tU-mBu"/>
+                                    <constraint firstAttribute="height" constant="30" id="kFP-nz-H24"/>
+                                </constraints>
+                                <state key="normal" title="❌"/>
+                                <connections>
+                                    <action selector="removeMarker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3kc-J2-qvb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -95,10 +106,12 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="08T-gc-0yV" secondAttribute="bottom" constant="18" id="Sry-cq-3zK"/>
                             <constraint firstItem="aeh-Ht-nxp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="6" id="XAv-KO-FOc"/>
                             <constraint firstItem="08T-gc-0yV" firstAttribute="top" secondItem="N1k-UI-vxY" secondAttribute="bottom" constant="14" id="a1c-uv-oci"/>
+                            <constraint firstItem="AUf-aJ-LtR" firstAttribute="top" secondItem="a9v-qn-pMR" secondAttribute="bottom" constant="17" id="fwC-vp-T9p"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hgU-pX-atp" secondAttribute="bottom" id="iTV-YS-9KK"/>
                             <constraint firstItem="aeh-Ht-nxp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="jQt-zD-pIP"/>
                             <constraint firstItem="08T-gc-0yV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="6" id="lbF-Js-kWV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aeh-Ht-nxp" secondAttribute="trailing" constant="7" id="m26-zw-XHb"/>
+                            <constraint firstItem="a9v-qn-pMR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="6" id="ncD-Yz-Rrx"/>
                             <constraint firstAttribute="trailing" secondItem="hgU-pX-atp" secondAttribute="trailing" id="t9I-Yv-pLL"/>
                             <constraint firstItem="Sv3-Cg-gq1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="txF-Mv-bzR"/>
                             <constraint firstItem="hgU-pX-atp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vep-Dn-bcl"/>
@@ -106,6 +119,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="deleteMarkerButton" destination="a9v-qn-pMR" id="Jmc-2H-drv"/>
                         <outlet property="infoLabel" destination="AUf-aJ-LtR" id="bot-tw-Wx0"/>
                         <outlet property="mapView" destination="hgU-pX-atp" id="Ke5-SA-9I2"/>
                         <outlet property="markButton" destination="08T-gc-0yV" id="540-Fx-oDh"/>

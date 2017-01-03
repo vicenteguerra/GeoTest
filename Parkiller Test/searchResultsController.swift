@@ -64,7 +64,6 @@ class searchResultsController: UITableViewController {
                     } else {
                         //Print the error
                         print(myjson["results"][0]["geometry"]["location"]["lng"].double)
-                        
                     }
                 }
             }

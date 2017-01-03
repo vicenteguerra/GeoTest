@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,8 +21,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyC3eDN-WwY1FDm4pGJCDM6r8-fgw7kKI_w")
         GMSPlacesClient.provideAPIKey("AIzaSyC3eDN-WwY1FDm4pGJCDM6r8-fgw7kKI_w")
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
+            if !accepted {
+                print("Notification access denied.")
+            }
+        }
+        
         return true
     }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

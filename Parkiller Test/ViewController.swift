@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import GoogleMaps
 import GooglePlaces
+import UserNotifications
 
 class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLLocationManagerDelegate, GMSMapViewDelegate {
     var locationManager:CLLocationManager!
@@ -17,10 +18,16 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     var position: GMSCameraPosition!
     var location: CLLocation!
     var initialCamera: Bool = true
+    var markerAddress: String = ""
+    var markerLocation: CLLocation? = nil
     
     var searchResultController: searchResultsController!
     var resultsArray = [String]()
     
+    var isGrantedNotificationAccess:Bool = false
+    var marker: GMSMarker!
+    
+    @IBOutlet weak var deleteMarkerButton: UIButton!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var markButton: UIButton!
@@ -35,19 +42,43 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
         mapView.isMyLocationEnabled = true
         mapView.delegate = self
         infoLabel.isHidden =  true
+        
+        marker = GMSMarker()
+        deleteMarkerButton.isHidden = true
+        
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: [.alert,.sound,.badge],
+            completionHandler: { (granted,error) in
+                self.isGrantedNotificationAccess = granted
+        }
+        )
     }
     
     
     @IBAction func markPoint(_ sender: Any) {
-        let marker = GMSMarker()
+        
         marker.position = CLLocationCoordinate2DMake(position.target.latitude, position.target.longitude)
         reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2DMake(position.target.latitude, position.target.longitude))
         marker.title = "🏁"
         marker.map = mapView
         infoLabel.isHidden = false
         markButton.isHidden = true
+        deleteMarkerButton.isHidden = false
+        
+        let coordinate1 = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        
+        self.markerLocation = CLLocation(latitude: position.target.latitude, longitude: position.target.longitude)
+        let distanceInMeters = self.markerLocation!.distance(from: coordinate1)
+        infoLabel.text = "\(distanceInMeters)"
+        
+        let circleCenter : CLLocationCoordinate2D  = CLLocationCoordinate2DMake(position.target.latitude, position.target.longitude)
+        let circ = GMSCircle(position: circleCenter, radius: distanceInMeters)
+        circ.fillColor = UIColor(red: 0.0, green: 0.7, blue: 0, alpha: 0.1)
+        circ.strokeColor = UIColor(red: 255/255, green: 153/255, blue: 51/255, alpha: 0.5)
+        circ.strokeWidth = 2.5
+        circ.map = self.mapView
+        
     }
-
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         self.position = position
@@ -83,6 +114,32 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     @IBAction func goToMyLocation(_ sender: Any) {
         camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 14)
         mapView.animate(to: camera)
+        
+        send10SecNotification()
+    }
+    
+    
+    func send10SecNotification(){
+        if isGrantedNotificationAccess{
+            let content = UNMutableNotificationContent()
+            content.title = "Test 🚀"
+            content.subtitle = "Hola :) 🍺"
+            content.body = "La la la 👻"
+            content.categoryIdentifier = "message"
+            
+            let trigger = UNTimeIntervalNotificationTrigger(
+                timeInterval: 1,
+                repeats: false)
+            
+            let request = UNNotificationRequest(
+                identifier: "10.second.message",
+                content: content,
+                trigger: trigger
+            )
+            
+            UNUserNotificationCenter.current().add(
+                request, withCompletionHandler: nil)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -95,6 +152,11 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
                                               longitude: location.coordinate.longitude, zoom: 10)
             mapView.camera = camera
             initialCamera = false
+        }
+        
+        if(self.markerLocation != nil){
+            let distanceInMeters = self.markerLocation!.distance(from: location)
+            infoLabel.text = "\(distanceInMeters)"
         }
         //manager.stopUpdatingLocation()
     }
@@ -112,7 +174,7 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
             if let address = response?.firstResult() {
                 
                 let lines = address.lines as [String]!
-                self.infoLabel.text = lines?.joined(separator: "\n")
+                self.markerAddress = (lines?.joined(separator: "\n"))!
                 
                 UIView.animate(withDuration: 0.25) {
                     self.view.layoutIfNeeded()
@@ -131,6 +193,13 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
         }
         searchController.searchBar.delegate = self
         self.present(searchController, animated: true, completion: nil)
+    }
+    
+    @IBAction func removeMarker(_ sender: Any) {
+        marker.map = nil
+        deleteMarkerButton.isHidden = true
+        infoLabel.isHidden = true
+        markButton.isHidden = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -155,7 +224,7 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
             self.infoLabel.text = title
             self.camera = GMSCameraPosition.camera(withLatitude: lat,
                                               longitude: lon, zoom: 14)
-            self.mapView.camera = self.camera
+            self.mapView.animate(to: self.camera)
         }
     }
     
