@@ -60,6 +60,7 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     
     @IBAction func markPoint(_ sender: Any) {
         
+        locationManager.startUpdatingLocation()
         marker.position = CLLocationCoordinate2DMake(position.target.latitude, position.target.longitude)
         reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2DMake(position.target.latitude, position.target.longitude))
         marker.title = "🏁"
@@ -108,6 +109,7 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     }
     
     @IBAction func goToMyLocation(_ sender: Any) {
+        locationManager.startUpdatingLocation()
         camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 14)
         mapView.animate(to: camera)
     }
@@ -145,12 +147,12 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
                                               longitude: location.coordinate.longitude, zoom: 14)
             mapView.camera = camera
             initialCamera = false
+            manager.stopUpdatingLocation()
         }
         
         if(self.markerLocation != nil){
             showDistance()
         }
-        //manager.stopUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
@@ -173,7 +175,6 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
         }
     }
     
-    
     @IBAction func searchAction(_ sender: Any) {
         let searchController = UISearchController(searchResultsController: searchResultController)
         let searchTextField: UITextField? = searchController.searchBar.value(forKey: "searchField") as? UITextField
@@ -186,6 +187,7 @@ class ViewController: UIViewController, LocateOnTheMap, UISearchBarDelegate, CLL
     }
     
     @IBAction func removeMarker(_ sender: Any) {
+        locationManager.stopUpdatingLocation()
         removeCircles()
         markerLocation = nil
         deleteMarkerButton.isHidden = true
