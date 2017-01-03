@@ -144,7 +144,9 @@ extension ViewController: distanceProperties{
             if(alert == true){
                 sendNotification(subtitle: message, distance: "\(distance) m." )
                 if(range == 0){
-                    print(getStaticMap(lat: "\(markerLocation!.coordinate.latitude)" , lng: "\(markerLocation!.coordinate.longitude)"))
+                    var url = getStaticMap(lat: "\(markerLocation!.coordinate.latitude)" , lng: "\(markerLocation!.coordinate.longitude)")
+                    var tuit = "👻 🏁 lat: \(markerLocation!.coordinate.latitude), lng: \(markerLocation!.coordinate.longitude) | \(url)"
+                    postTweet(tuit: tuit)
                 }
             }
             infoLabel.text = "\(message)\n \(distance) m."

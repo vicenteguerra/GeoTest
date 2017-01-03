@@ -10,4 +10,7 @@ target 'Parkiller Test' do
   pod 'Alamofire', '4.2.0'
   pod 'SwiftyJSON'
   pod 'GooglePlaces'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'TwitterAPI'
 end
